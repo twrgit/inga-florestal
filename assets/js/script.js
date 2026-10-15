@@ -13,3 +13,22 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     target.setAttribute('tabindex', '-1'); target.focus({ preventScroll: true });
   });
 });
+
+// Independent timings keep the opening artwork from pulsing in a fixed sequence.
+const hero = document.querySelector('.hero');
+if (hero) {
+  hero.querySelectorAll('.hero-glyph').forEach(glyph => {
+    glyph.style.setProperty('--pulse-duration', `${12 + Math.random() * 9}s`);
+    glyph.style.setProperty('--pulse-offset', `${-Math.random() * 18}s`);
+  });
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+  let heroVisible = false;
+  const updateHeroAnimation = () => hero.classList.toggle('is-animating', heroVisible && !document.hidden && !motionPreference.matches);
+  const heroObserver = new IntersectionObserver(entries => {
+    heroVisible = entries[0].isIntersecting;
+    updateHeroAnimation();
+  });
+  heroObserver.observe(hero);
+  document.addEventListener('visibilitychange', updateHeroAnimation);
+  motionPreference.addEventListener('change', updateHeroAnimation);
+}

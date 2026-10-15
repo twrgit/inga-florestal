@@ -41,3 +41,5 @@ Código: https://github.com/twrgit/inga-florestal
 Prévia: https://twrgit.github.io/inga-florestal/
 
 O GitHub Pages publica automaticamente os commits enviados à branch `main`. As pastas `arquivos/` e `tmp/` ficam fora do Git.
+
+A abertura usa fundo e letras exportados separadamente do PSD. As letras têm fades em tempos independentes; Florestal flutua discretamente. A animação pausa fora da tela e em abas ocultas, e fica desativada com preferência de movimento reduzido.
