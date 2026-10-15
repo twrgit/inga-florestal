@@ -1,0 +1,24 @@
+{
+  "references": {
+    "prototype": "https://marvelapp.com/prototype/121927h4/screen/99116968",
+    "brandResources": "https://drive.google.com/drive/folders/1f9pJErr6AOsTA4DfWeHoRDinp4ZOyiAo",
+    "clientResources": "https://drive.google.com/drive/folders/1-VjXZ_DntzdERNwX-VUxkjdFCANu3Kuw"
+  },
+  "fonts": [
+    "PP Neue Montreal Book / Medium / Bold",
+    "Nebulica Light / Regular"
+  ],
+  "notes": [
+    "Layout v4 is the visual authority where its composition differs from the brand manual.",
+    "Contacts explicitly confirmed by the client: contato.ingaflorestal@gmail.com, +55 24 99295-8608.",
+    "Stock photos remain those selected in the approved layout.",
+    "Opening artwork and the about illustration retain the approved composite; the Grupo Petrópolis logo is derived from the PSD (not available in the supplied partner folder).",
+    "Client gallery images unavailable by matching name in Drive were extracted from original PSD layers, without surrounding layout text."
+  ],
+  "partnerLogos": {
+    "folder": "https://drive.google.com/drive/folders/1_CxyRlCs5qi0VqNAjlJDAUB-ErZ2xmBX",
+    "assets": "assets/img/parceiros/",
+    "method": "Original transparent PNGs for Águas do Imperador, K2 and Pró-Mudas Rio; built-in image editor background extraction for Consig, AFB and Grupo Petrópolis.",
+    "prompt": "assets/img/parceiros/README.md"
+  }
+}
