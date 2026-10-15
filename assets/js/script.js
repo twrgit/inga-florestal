@@ -75,3 +75,14 @@ if (counters.length && 'IntersectionObserver' in window) {
     counters.forEach(finishCounter);
   });
 }
+
+const partners = document.querySelector('.partners');
+if (partners && 'IntersectionObserver' in window) {
+  let partnersVisible = false;
+  const updatePartnersMotion = () => partners.classList.toggle('is-moving', partnersVisible && !document.hidden);
+  new IntersectionObserver(entries => {
+    partnersVisible = entries[0].isIntersecting;
+    updatePartnersMotion();
+  }).observe(partners);
+  document.addEventListener('visibilitychange', updatePartnersMotion);
+}

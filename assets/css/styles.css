@@ -28,3 +28,14 @@ body{font-family:Montreal,Arial,sans-serif;font-size:18px}.header{background:#1b
 @media(prefers-reduced-motion:reduce){.hero .hero-glyph{animation:none;opacity:1;transform:none}}
 
 [data-count-to]{display:inline-block;text-align:right;font-variant-numeric:tabular-nums}
+
+/* Two identical, viewport-wide groups make the moving strip seamless. */
+.partner-logos{display:block;overflow:hidden;scroll-snap-type:none;padding-block:12px}
+.partner-track{display:flex;width:max-content;animation:partner-marquee 32s linear infinite;animation-play-state:paused}
+.partners.is-moving .partner-track{animation-play-state:running}
+.partner-group{display:flex;align-items:center;justify-content:space-between;gap:26px;flex:0 0 980px;width:980px;padding-right:26px}
+.partner-logos .partner-group img{width:135px;max-width:none;height:100px;flex:0 0 135px;object-fit:contain;scroll-snap-align:none}
+.partner-logos:hover .partner-track,.partner-logos:focus-within .partner-track{animation-play-state:paused}
+@keyframes partner-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:700px){.partner-group{gap:22px;flex-basis:1032px;width:1032px;padding-right:22px}.partner-logos .partner-group img{width:150px;flex-basis:150px}}
+@media(prefers-reduced-motion:reduce){.partner-track{animation:none;width:100%}.partner-group{width:100%;flex:0 0 100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding:0}.partner-logos .partner-group img{width:100%;max-width:150px;margin:auto}.partner-group[aria-hidden="true"]{display:none}}

@@ -45,3 +45,5 @@ O GitHub Pages publica automaticamente os commits enviados à branch `main`. As 
 A abertura usa fundo e letras exportados separadamente do PSD. As letras têm fades em tempos independentes; Florestal flutua discretamente. A animação pausa fora da tela e em abas ocultas, e fica desativada com preferência de movimento reduzido.
 
 Os quatro indicadores contam de zero até o valor final ao entrar na tela, uma vez por carregamento. Os valores finais permanecem no HTML e na leitura acessível; movimento reduzido desativa a contagem.
+
+A faixa de parceiros se move continuamente em duas sequências idênticas de logos, sem intervalo vazio. Pausa com mouse, foco de teclado, fora da tela e em aba oculta. Movimento reduzido apresenta os seis logos em grade estática, sem duplicatas acessíveis.
