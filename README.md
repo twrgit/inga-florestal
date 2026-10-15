@@ -14,7 +14,7 @@ Acesse http://localhost:8000. Também é possível abrir `index.html` diretament
 
 - `index.html`: conteúdo semântico, metadados e dados estruturados ProfessionalService.
 - `assets/css/styles.css`: layout responsivo e acessibilidade visual.
-- `assets/js/script.js`: menu móvel, navegação suave sem alterar a URL e galerias.
+- `assets/js/script.js`: menu móvel, navegação suave sem alterar a URL.
 - `assets/img/`: imagens, logos, texturas e favicon.
 - `assets/fonts/`: fontes WOFF2 locais.
 - `assets/sources.json`: origem dos recursos.
@@ -28,7 +28,9 @@ Os números e textos institucionais seguem o PSD recebido. Prévia publicada pel
 
 ## Verificação
 
-Conferidos no Chrome: menu móvel, navegação sem hash na URL, galeria com avanço de foto e largura de 390 px sem transbordamento horizontal. Imagens, âncoras, dados estruturados e sintaxe JavaScript verificados. Os contatos do layout foram confirmados pelo cliente e prevalecem sobre os contatos diferentes do manual.
+Conferidos no Chrome: menu móvel, navegação sem hash na URL, largura de 390 px sem transbordamento horizontal. Imagens, âncoras, dados estruturados e sintaxe JavaScript verificados. Os contatos do layout foram confirmados pelo cliente e prevalecem sobre os contatos diferentes do manual.
+
+As fotos dos serviços usam uma grade estática, sem setas ou carrossel.
 
 Os logos de parceiros estão em `assets/img/parceiros/`, com arquivos PNG transparentes e sem mistura de cores por CSS. O processo e o prompt de remoção de fundo estão documentados no README dessa pasta.
 
