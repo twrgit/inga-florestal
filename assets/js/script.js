@@ -14,49 +14,50 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// Randomize each fade, keeping the other letters visible throughout.
+// Each letter gets fresh random timings every cycle; fades can overlap.
 const hero = document.querySelector('.hero');
 const heroMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const heroLetters = [...hero.querySelectorAll('.hero-glyph:not(.hero-glyph-florestal)')];
 let heroVisible = true;
-let heroAnimation;
-let previousHeroLetter;
-function nextHeroFade() {
-  const candidates = heroLetters.filter(letter => letter !== previousHeroLetter);
-  const letter = candidates[Math.floor(Math.random() * candidates.length)];
+const heroAnimations = new Map();
+function nextHeroFade(letter) {
   if (!letter || !letter.animate) return;
-  previousHeroLetter = letter;
   const fadeOut = 1200 + Math.random() * 1400;
   const hidden = 300 + Math.random() * 700;
   const fadeIn = 1400 + Math.random() * 1600;
   const duration = fadeOut + hidden + fadeIn;
-  heroAnimation = letter.animate([
+  const animation = letter.animate([
     { opacity: 1, offset: 0, easing: 'ease-in-out' },
     { opacity: .06, offset: fadeOut / duration },
     { opacity: .06, offset: (fadeOut + hidden) / duration, easing: 'ease-in-out' },
     { opacity: 1, offset: 1 }
-  ], { duration, delay: 350 + Math.random() * 1100 });
-  heroAnimation.onfinish = () => {
-    heroAnimation = undefined;
+  ], { duration, delay: 500 + Math.random() * 6500 });
+  heroAnimations.set(letter, animation);
+  animation.onfinish = () => {
+    heroAnimations.delete(letter);
     updateHeroMotion();
   };
 }
 function updateHeroMotion() {
   if (heroMotion.matches) {
-    if (heroAnimation) {
-      heroAnimation.onfinish = null;
-      heroAnimation.cancel();
-      heroAnimation = undefined;
-    }
+    heroAnimations.forEach(animation => {
+      animation.onfinish = null;
+      animation.cancel();
+    });
+    heroAnimations.clear();
     return;
   }
   if (!heroVisible || document.hidden) {
-    heroAnimation?.pause();
+    heroAnimations.forEach(animation => animation.pause());
     return;
   }
-  if (heroAnimation) heroAnimation.play();
-  else nextHeroFade();
+  heroLetters.forEach(letter => {
+    const animation = heroAnimations.get(letter);
+    if (animation) animation.play();
+    else nextHeroFade(letter);
+  });
 }
+
 if ('IntersectionObserver' in window) {
   new IntersectionObserver(entries => {
     heroVisible = entries[0].isIntersecting;
