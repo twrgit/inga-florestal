@@ -153,13 +153,3 @@ footer nav{grid-template-columns:5.1388889vw 17.8472222vw 12.2916667vw;column-ga
 .contact-icon-email{--icon:url('../img/email.png')}
 .contact-icon-telefone{--icon:url('../img/telefone.png')}
 .contact-icon-localizacao{--icon:url('../img/localizacao.png')}
-
-/* Fade each banner letter independently without shifting the artwork. */
-.hero-glyph:not(.hero-glyph-florestal){animation:hero-letter-fade 14s ease-in-out infinite;animation-play-state:paused}
-.hero.is-animating .hero-glyph{animation-play-state:running}
-.hero-glyph-i{animation-delay:-5s}
-.hero-glyph-n{animation-delay:-1s}
-.hero-glyph-g{animation-delay:-9s}
-.hero-glyph-a{animation-delay:-12s}
-@keyframes hero-letter-fade{0%,20%,80%,100%{opacity:1}45%,55%{opacity:.06}}
-@media(prefers-reduced-motion:reduce){.hero-glyph:not(.hero-glyph-florestal){animation:none;opacity:1}}

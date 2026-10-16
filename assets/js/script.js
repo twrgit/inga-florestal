@@ -14,12 +14,48 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// Pause the banner fades when the banner or browser tab is hidden.
+// Randomize each fade, keeping the other letters visible throughout.
 const hero = document.querySelector('.hero');
 const heroMotion = matchMedia('(prefers-reduced-motion: reduce)');
+const heroLetters = [...hero.querySelectorAll('.hero-glyph:not(.hero-glyph-florestal)')];
 let heroVisible = true;
+let heroAnimation;
+let previousHeroLetter;
+function nextHeroFade() {
+  const candidates = heroLetters.filter(letter => letter !== previousHeroLetter);
+  const letter = candidates[Math.floor(Math.random() * candidates.length)];
+  if (!letter || !letter.animate) return;
+  previousHeroLetter = letter;
+  const fadeOut = 1200 + Math.random() * 1400;
+  const hidden = 300 + Math.random() * 700;
+  const fadeIn = 1400 + Math.random() * 1600;
+  const duration = fadeOut + hidden + fadeIn;
+  heroAnimation = letter.animate([
+    { opacity: 1, offset: 0, easing: 'ease-in-out' },
+    { opacity: .06, offset: fadeOut / duration },
+    { opacity: .06, offset: (fadeOut + hidden) / duration, easing: 'ease-in-out' },
+    { opacity: 1, offset: 1 }
+  ], { duration, delay: 350 + Math.random() * 1100 });
+  heroAnimation.onfinish = () => {
+    heroAnimation = undefined;
+    updateHeroMotion();
+  };
+}
 function updateHeroMotion() {
-  hero.classList.toggle('is-animating', heroVisible && !document.hidden && !heroMotion.matches);
+  if (heroMotion.matches) {
+    if (heroAnimation) {
+      heroAnimation.onfinish = null;
+      heroAnimation.cancel();
+      heroAnimation = undefined;
+    }
+    return;
+  }
+  if (!heroVisible || document.hidden) {
+    heroAnimation?.pause();
+    return;
+  }
+  if (heroAnimation) heroAnimation.play();
+  else nextHeroFade();
 }
 if ('IntersectionObserver' in window) {
   new IntersectionObserver(entries => {
