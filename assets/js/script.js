@@ -14,6 +14,23 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
+// Pause the banner fades when the banner or browser tab is hidden.
+const hero = document.querySelector('.hero');
+const heroMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let heroVisible = true;
+function updateHeroMotion() {
+  hero.classList.toggle('is-animating', heroVisible && !document.hidden && !heroMotion.matches);
+}
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(entries => {
+    heroVisible = entries[0].isIntersecting;
+    updateHeroMotion();
+  }).observe(hero);
+}
+document.addEventListener('visibilitychange', updateHeroMotion);
+heroMotion.addEventListener('change', updateHeroMotion);
+updateHeroMotion();
+
 // Keep final values in HTML for indexing and assistive technology.
 const counters = [...document.querySelectorAll('[data-count-to]')];
 const counterMotion = matchMedia('(prefers-reduced-motion: reduce)');

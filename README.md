@@ -16,7 +16,7 @@ Modelo principal: https://marvelapp.com/prototype/121927h4/screen/99116968, corr
 
 A revisão de 15/10/2026 consolida o CSS em uma única definição por componente e reproduz as coordenadas do desenho de 1440 px no desktop, com medidas proporcionais. Em 1280 px, a página tem 7976 px de altura, como a referência. Em telas de até 700 px, o conteúdo passa para o fluxo vertical, sem alturas fixas para os serviços.
 
-Os fundos dos serviços, os grafismos, a floresta e a composição de viveiro com faixa verde foram exportados do PSD preservando cores, máscaras e modos de mesclagem. As fotos dos serviços preservam os recortes do PNG aprovado. Os textos são HTML com PP Neue Montreal e Nebulica locais; os textos pequenos da abertura também são HTML para evitar rasterização. As marcas da abertura e do cabeçalho permanecem estáticas, sem efeitos.
+Os fundos dos serviços, os grafismos, a floresta e a composição de viveiro com faixa verde foram exportados do PSD preservando cores, máscaras e modos de mesclagem. As fotos dos serviços preservam os recortes do PNG aprovado. Os textos são HTML com PP Neue Montreal e Nebulica locais; os textos pequenos da abertura também são HTML para evitar rasterização. As letras de Ingá na abertura têm fade in/out independente em ciclos de 14 segundos. O efeito pausa fora da tela ou com a aba oculta e é desativado com movimento reduzido. A marca do cabeçalho permanece estática.
 
 Cores confirmadas pelo cliente: cabeçalho `#1A422D` e rodapé `#382313`. O rodapé mantém três colunas e ícones SVG vinculados aos perfis oficiais de LinkedIn e Instagram, confirmados pelo cliente em 15/10/2026. Os perfis abrem em nova aba. Os dois botões “Fale com a gente” compartilham o mesmo estilo e apontam para o WhatsApp confirmado.
 
