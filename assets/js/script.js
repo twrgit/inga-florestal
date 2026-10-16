@@ -14,24 +14,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// Independent fades restore the opening letters without moving the layout.
-const hero = document.querySelector('.hero');
-const heroMotion = matchMedia('(prefers-reduced-motion: reduce)');
-let heroVisible = false;
-hero.querySelectorAll('.hero-glyph').forEach(glyph => {
-  glyph.style.setProperty('--pulse-duration', `${12 + Math.random() * 9}s`);
-  glyph.style.setProperty('--pulse-offset', `${-Math.random() * 18}s`);
-});
-function updateHeroMotion() {
-  hero.classList.toggle('is-animating', heroVisible && !document.hidden && !heroMotion.matches);
-}
-new IntersectionObserver(entries => {
-  heroVisible = entries[0].isIntersecting;
-  updateHeroMotion();
-}).observe(hero);
-document.addEventListener('visibilitychange', updateHeroMotion);
-heroMotion.addEventListener('change', updateHeroMotion);
-
 // Keep final values in HTML for indexing and assistive technology.
 const counters = [...document.querySelectorAll('[data-count-to]')];
 const counterMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -97,7 +79,7 @@ function movePartner(direction) {
     track.getBoundingClientRect();
   }
   partnerIndex += direction;
-  track.style.transition = partnerMotion.matches ? 'none' : 'transform 550ms ease-in-out';
+  track.style.transition = partnerMotion.matches ? 'none' : 'transform 275ms ease-in-out';
   track.style.transform = `translateX(${-partnerIndex * partnerStep()}px)`;
   setTimeout(() => {
     if (partnerIndex >= count) {
@@ -106,19 +88,26 @@ function movePartner(direction) {
       track.style.transform = 'translateX(0)';
     }
     partnerBusy = false;
-  }, partnerMotion.matches ? 0 : 560);
+  }, partnerMotion.matches ? 0 : 285);
 }
 function schedulePartners() {
   clearInterval(partnerTimer);
-  if (partnerVisible && !document.hidden && !partnerMotion.matches && document.activeElement !== viewport) {
-    partnerTimer = setInterval(() => movePartner(1), 3200);
+  if (partnerVisible && !document.hidden && !partnerMotion.matches && !document.activeElement.closest('.partner-carousel')) {
+    partnerTimer = setInterval(() => movePartner(1), 1600);
   }
 }
 new IntersectionObserver(entries => { partnerVisible = entries[0].isIntersecting; schedulePartners(); }).observe(partners);
-['focusin', 'focusout'].forEach(type => viewport.addEventListener(type, () => queueMicrotask(schedulePartners)));
+['focusin', 'focusout'].forEach(type => partners.addEventListener(type, () => queueMicrotask(schedulePartners)));
 document.addEventListener('visibilitychange', schedulePartners);
 partnerMotion.addEventListener('change', schedulePartners);
 window.addEventListener('resize', () => {
   track.style.transition = 'none';
   track.style.transform = `translateX(${-partnerIndex * partnerStep()}px)`;
+});
+
+document.querySelectorAll('.partner-arrow').forEach(button => {
+  button.addEventListener('click', () => {
+    movePartner(Number(button.dataset.direction));
+    schedulePartners();
+  });
 });
