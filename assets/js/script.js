@@ -14,6 +14,24 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
+// Independent fades restore the opening letters without moving the layout.
+const hero = document.querySelector('.hero');
+const heroMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let heroVisible = false;
+hero.querySelectorAll('.hero-glyph').forEach(glyph => {
+  glyph.style.setProperty('--pulse-duration', `${12 + Math.random() * 9}s`);
+  glyph.style.setProperty('--pulse-offset', `${-Math.random() * 18}s`);
+});
+function updateHeroMotion() {
+  hero.classList.toggle('is-animating', heroVisible && !document.hidden && !heroMotion.matches);
+}
+new IntersectionObserver(entries => {
+  heroVisible = entries[0].isIntersecting;
+  updateHeroMotion();
+}).observe(hero);
+document.addEventListener('visibilitychange', updateHeroMotion);
+heroMotion.addEventListener('change', updateHeroMotion);
+
 // Keep final values in HTML for indexing and assistive technology.
 const counters = [...document.querySelectorAll('[data-count-to]')];
 const counterMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -57,7 +75,7 @@ if (counters.length && 'IntersectionObserver' in window) {
   });
 }
 
-// Advance one partner, then pause. Both arrows remain available at every width.
+// Advance one partner, then pause. Section navigation and pointer hover must not stop autoplay.
 const partners = document.querySelector('.partners');
 const viewport = document.querySelector('.partner-logos');
 const track = document.querySelector('.partner-track');
@@ -92,14 +110,12 @@ function movePartner(direction) {
 }
 function schedulePartners() {
   clearInterval(partnerTimer);
-  if (partnerVisible && !document.hidden && !partnerMotion.matches && !partners.matches(':hover') && !partners.contains(document.activeElement)) {
+  if (partnerVisible && !document.hidden && !partnerMotion.matches && document.activeElement !== viewport) {
     partnerTimer = setInterval(() => movePartner(1), 3200);
   }
 }
-document.querySelector('.partner-previous').addEventListener('click', () => { movePartner(-1); schedulePartners(); });
-document.querySelector('.partner-next').addEventListener('click', () => { movePartner(1); schedulePartners(); });
 new IntersectionObserver(entries => { partnerVisible = entries[0].isIntersecting; schedulePartners(); }).observe(partners);
-['mouseenter', 'mouseleave', 'focusin', 'focusout'].forEach(type => partners.addEventListener(type, () => queueMicrotask(schedulePartners)));
+['focusin', 'focusout'].forEach(type => viewport.addEventListener(type, () => queueMicrotask(schedulePartners)));
 document.addEventListener('visibilitychange', schedulePartners);
 partnerMotion.addEventListener('change', schedulePartners);
 window.addEventListener('resize', () => {
