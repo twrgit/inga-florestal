@@ -14,25 +14,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// Independent timings keep the opening artwork from pulsing in a fixed sequence.
-const hero = document.querySelector('.hero');
-if (hero) {
-  hero.querySelectorAll('.hero-glyph').forEach(glyph => {
-    glyph.style.setProperty('--pulse-duration', `${12 + Math.random() * 9}s`);
-    glyph.style.setProperty('--pulse-offset', `${-Math.random() * 18}s`);
-  });
-  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
-  let heroVisible = false;
-  const updateHeroAnimation = () => hero.classList.toggle('is-animating', heroVisible && !document.hidden && !motionPreference.matches);
-  const heroObserver = new IntersectionObserver(entries => {
-    heroVisible = entries[0].isIntersecting;
-    updateHeroAnimation();
-  });
-  heroObserver.observe(hero);
-  document.addEventListener('visibilitychange', updateHeroAnimation);
-  motionPreference.addEventListener('change', updateHeroAnimation);
-}
-
 // Keep final values in HTML for indexing and assistive technology.
 const counters = [...document.querySelectorAll('[data-count-to]')];
 const counterMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -76,13 +57,52 @@ if (counters.length && 'IntersectionObserver' in window) {
   });
 }
 
+// Advance one partner, then pause. Both arrows remain available at every width.
 const partners = document.querySelector('.partners');
-if (partners && 'IntersectionObserver' in window) {
-  let partnersVisible = false;
-  const updatePartnersMotion = () => partners.classList.toggle('is-moving', partnersVisible && !document.hidden);
-  new IntersectionObserver(entries => {
-    partnersVisible = entries[0].isIntersecting;
-    updatePartnersMotion();
-  }).observe(partners);
-  document.addEventListener('visibilitychange', updatePartnersMotion);
+const viewport = document.querySelector('.partner-logos');
+const track = document.querySelector('.partner-track');
+const group = document.querySelector('.partner-group');
+const partnerMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let partnerIndex = 0;
+let partnerTimer;
+let partnerVisible = false;
+let partnerBusy = false;
+function partnerStep() { return group.children[1].offsetLeft - group.children[0].offsetLeft; }
+function movePartner(direction) {
+  if (partnerBusy) return;
+  partnerBusy = true;
+  const count = group.children.length;
+  if (direction < 0 && partnerIndex === 0) {
+    partnerIndex = count;
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${-partnerIndex * partnerStep()}px)`;
+    track.getBoundingClientRect();
+  }
+  partnerIndex += direction;
+  track.style.transition = partnerMotion.matches ? 'none' : 'transform 550ms ease-in-out';
+  track.style.transform = `translateX(${-partnerIndex * partnerStep()}px)`;
+  setTimeout(() => {
+    if (partnerIndex >= count) {
+      partnerIndex = 0;
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(0)';
+    }
+    partnerBusy = false;
+  }, partnerMotion.matches ? 0 : 560);
 }
+function schedulePartners() {
+  clearInterval(partnerTimer);
+  if (partnerVisible && !document.hidden && !partnerMotion.matches && !partners.matches(':hover') && !partners.contains(document.activeElement)) {
+    partnerTimer = setInterval(() => movePartner(1), 3200);
+  }
+}
+document.querySelector('.partner-previous').addEventListener('click', () => { movePartner(-1); schedulePartners(); });
+document.querySelector('.partner-next').addEventListener('click', () => { movePartner(1); schedulePartners(); });
+new IntersectionObserver(entries => { partnerVisible = entries[0].isIntersecting; schedulePartners(); }).observe(partners);
+['mouseenter', 'mouseleave', 'focusin', 'focusout'].forEach(type => partners.addEventListener(type, () => queueMicrotask(schedulePartners)));
+document.addEventListener('visibilitychange', schedulePartners);
+partnerMotion.addEventListener('change', schedulePartners);
+window.addEventListener('resize', () => {
+  track.style.transition = 'none';
+  track.style.transform = `translateX(${-partnerIndex * partnerStep()}px)`;
+});

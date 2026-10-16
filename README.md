@@ -1,49 +1,37 @@
 # Ingá Florestal
 
-Site institucional one page em HTML, CSS e JavaScript, sem dependências de produção.
+Site institucional em HTML, CSS e JavaScript, com fontes e imagens locais e sem dependências de produção.
 
-## Executar localmente
+## Prévia local
 
 ```sh
-python3 -m http.server 8000
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Acesse http://localhost:8000. Também é possível abrir `index.html` diretamente.
+Abrir http://127.0.0.1:8000/index.html.
 
-## Estrutura
+## Referência visual
 
-- `index.html`: conteúdo semântico, metadados e dados estruturados ProfessionalService.
-- `assets/css/styles.css`: layout responsivo e acessibilidade visual.
-- `assets/js/script.js`: menu móvel, navegação suave sem alterar a URL.
-- `assets/img/`: imagens, logos, texturas e favicon.
-- `assets/fonts/`: fontes WOFF2 locais.
-- `assets/sources.json`: origem dos recursos.
-- `arquivos/`: referências originais.
+Modelo principal: https://marvelapp.com/prototype/121927h4/screen/99116968, correspondente ao PSD e PNG v4 disponíveis em `arquivos/` (fora do Git).
 
-## Antes da publicação
+A revisão de 15/10/2026 consolida o CSS em uma única definição por componente e reproduz as coordenadas do desenho de 1440 px no desktop, com medidas proporcionais. Em 1280 px, a página tem 7976 px de altura, como a referência. Em telas de até 700 px, o conteúdo passa para o fluxo vertical, sem alturas fixas para os serviços.
 
-Confirmar domínio para adicionar URL canônica, og:url, imagem social com URL absoluta e sitemap.xml. Revisar os textos, contatos e nomes dos parceiros. Recursos do Drive já integrados: fontes, marca, texturas, fotografias e quatro logos de parceiros. AFB usa o original do Drive com fundo removido; Grupo Petrópolis usa a referência do PSD com fundo removido; a arte de abertura e a composição de Sobre nós preservam a referência aprovada. A arte de abertura contém texto visual; o título principal também está disponível em HTML para acessibilidade e indexação. Não há formulário ou backend; o contato funciona por telefone, e-mail e WhatsApp.
+Os fundos dos serviços, os grafismos, a floresta e a composição de viveiro com faixa verde foram exportados do PSD preservando cores, máscaras e modos de mesclagem. As fotos dos serviços preservam os recortes do PNG aprovado. Os textos são HTML com PP Neue Montreal e Nebulica locais; os textos pequenos da abertura também são HTML para evitar rasterização. A marca da abertura fica estática.
 
-Os números e textos institucionais seguem o PSD recebido. Prévia publicada pelo GitHub Pages a partir da branch `main`: https://twrgit.github.io/inga-florestal/.
+Cores confirmadas pelo cliente: cabeçalho `#1A422D` e rodapé `#382313`. O rodapé mantém três colunas e ícones SVG de LinkedIn e Instagram sem links, conforme solicitado. Os dois botões “Fale com a gente” compartilham o mesmo estilo e apontam para o WhatsApp confirmado.
 
-## Verificação
+Os indicadores contam até seus valores finais ao entrar na tela. Os parceiros avançam um logo por vez, com intervalo de 3,2 segundos, transição de 550 ms e setas nos dois sentidos. A animação pausa com mouse, foco, aba oculta ou seção fora da tela. Movimento reduzido desativa a contagem e o avanço automático.
 
-Conferidos no Chrome: menu móvel, navegação sem hash na URL, largura de 390 px sem transbordamento horizontal. Imagens, âncoras, dados estruturados e sintaxe JavaScript verificados. Os contatos do layout foram confirmados pelo cliente e prevalecem sobre os contatos diferentes do manual.
+## Verificações da revisão
 
-As fotos dos serviços usam uma grade estática, sem setas ou carrossel.
+Conferidos no Chrome em 1280 px: proporções de todas as seções, galerias, imagens carregadas e seta de parceiros. Em 390 px: ausência de transbordamento horizontal, tipografia e abertura/fechamento do menu. Sintaxe JavaScript, estrutura HTML, recursos locais e `git diff --check` verificados. Capturas locais de comparação ficam em `tmp/`, fora do Git.
 
-Os logos de parceiros estão em `assets/img/parceiros/`, com arquivos PNG transparentes e sem mistura de cores por CSS. O processo e o prompt de remoção de fundo estão documentados no README dessa pasta.
+A fotografia de contato usa a fonte limpa com o recorte do modelo, sem o retângulo da composição interna do PSB. O original disponível tem 754 × 1078 px; uma versão de maior resolução ainda depende de um novo arquivo. O favicon permanece aguardando as opções que o cliente enviará.
 
-## Repositório e publicação
+## Publicação
 
-Código: https://github.com/twrgit/inga-florestal
+Repositório: https://github.com/twrgit/inga-florestal
 
-Prévia: https://twrgit.github.io/inga-florestal/
+GitHub Pages: https://twrgit.github.io/inga-florestal/
 
-O GitHub Pages publica automaticamente os commits enviados à branch `main`. As pastas `arquivos/` e `tmp/` ficam fora do Git.
-
-A abertura usa fundo e letras exportados separadamente do PSD. As letras têm fades em tempos independentes; Florestal flutua discretamente. A animação pausa fora da tela e em abas ocultas, e fica desativada com preferência de movimento reduzido.
-
-Os quatro indicadores contam de zero até o valor final ao entrar na tela, uma vez por carregamento. Os valores finais permanecem no HTML e na leitura acessível; movimento reduzido desativa a contagem.
-
-A faixa de parceiros se move continuamente em duas sequências idênticas de logos, sem intervalo vazio. Pausa com mouse, foco de teclado, fora da tela e em aba oculta. Movimento reduzido apresenta os seis logos em grade estática, sem duplicatas acessíveis.
+O Pages publica commits enviados à branch `main`. O envio desta revisão à `main` foi autorizado pelo cliente em 15/10/2026.

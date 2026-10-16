@@ -9,11 +9,13 @@
     "Nebulica Light / Regular"
   ],
   "notes": [
+    "User confirmed on 2026-10-15: Marvel screen 99116968 is the primary visual reference. Match its composition, typography, colors and spacing, incorporating only the explicitly requested revisions.",
     "Layout v4 is the visual authority where its composition differs from the brand manual.",
     "Contacts explicitly confirmed by the client: contato.ingaflorestal@gmail.com, +55 24 99295-8608.",
     "Stock photos remain those selected in the approved layout.",
     "Opening artwork and the about illustration retain the approved composite; the Grupo Petrópolis logo is derived from the PSD (not available in the supplied partner folder).",
-    "Client gallery images unavailable by matching name in Drive were extracted from original PSD layers, without surrounding layout text."
+    "Client gallery images unavailable by matching name in Drive were extracted from original PSD layers, without surrounding layout text.",
+    "2026-10-15 full-layout revision: service backgrounds retain PSD compositing and gallery crops match the approved PNG. Desktop dimensions follow the 1440 px source; at 1280 px total height is 7976 px."
   ],
   "partnerLogos": {
     "folder": "https://drive.google.com/drive/folders/1_CxyRlCs5qi0VqNAjlJDAUB-ErZ2xmBX",
