@@ -43,3 +43,14 @@ Botões com bordas arredondadas e estilo compartilhado; licenciamento em creme; 
 Drives fornecidos conferidos novamente: a pasta adicional contém o mesmo PSD e PNG v4. A fotografia do ingá em maior resolução não foi localizada nos recursos consultados; mantém-se a atual até localizar um original superior. Favicon aguarda as opções do cliente.
 
 Verificação desta revisão: contato/rodapé e setas no Chrome desktop, integridade dos recursos locais, sintaxe JavaScript e git diff --check.
+
+## Ajustes de 21/10/2026
+
+Aplicados os pedidos da apresentação de QA mobile e desktop fornecida pelo cliente:
+https://docs.google.com/presentation/d/1YrMmXI1_UD0mFM3NhnAuCl4ZHWARp6hksN8viWuf2bs/edit
+
+A abertura mobile passa a exibir o grid quadrado acima da fotografia aérea, com letras e textos posicionados conforme a referência. As seções mobile compartilham margens laterais maiores e os serviços recebem mais respiro acima das tags. O texto sobre os viveiros fica mais próximo do indicador +350. O contato mobile usa conteúdo em fluxo, com o botão a 24 px das informações; no desktop, título, informações e botão sobem juntos para ampliar o espaço inferior.
+
+Fundos dos serviços reexportados isoladamente do PSD para eliminar interferência das seções vizinhas. Removido o grafismo de Perícias e laudos técnicos em ambas as versões. Bordas residuais das galerias e das imagens nas transições foram aparadas. Os separadores das listas mobile acompanham a altura do texto, incluindo itens que ocupam duas linhas.
+
+Verificação no Chrome em 320, 390, 700, 1280 e 1440 px: carregamento de imagens, ausência de transbordamento horizontal e erros JavaScript; abertura e fechamento do menu mobile. Capturas de conferência em `tmp/qa-*.png`. Publicação desta revisão autorizada pelo cliente em 21/10/2026.
