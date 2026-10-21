@@ -57,3 +57,5 @@ Verificação no Chrome em 320, 390, 700, 1280 e 1440 px: carregamento de imagen
 
 
 Ajuste adicional de 21/10/2026: removida a animação das letras da abertura e o grafismo de curvas de nível de Inventário e Vegetação no desktop e no mobile. Fotografia de contato substituída pela nova imagem das vagens verdes ao sol.
+
+Imagem de Sobre nós reexportada diretamente do PSD com a camada vetorial das curvas de nível desativada, preservando as fotografias e o enquadramento original.
